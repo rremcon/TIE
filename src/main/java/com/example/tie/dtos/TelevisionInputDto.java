@@ -24,7 +24,7 @@ public class TelevisionInputDto {
     public int sold;
 
 
-    public Television toTelevision() {
+    public Television toTelevision(TelevisionInputDto televisionInputDto) {
         var tv = new Television();
 
         tv.setId(id);

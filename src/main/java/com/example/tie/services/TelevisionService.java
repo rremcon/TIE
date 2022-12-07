@@ -1,9 +1,11 @@
 package com.example.tie.services;
 
+import com.example.tie.controllers.RemoteController;
 import com.example.tie.dtos.TelevisionDto;
 import com.example.tie.dtos.TelevisionInputDto;
 import com.example.tie.exceptions.RecordNotFoundException;
 import com.example.tie.models.Television;
+import com.example.tie.repositories.RemoteRepository;
 import com.example.tie.repositories.TelevisionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,19 +16,29 @@ import java.util.ArrayList;
 @Service
 public class TelevisionService {
 
-    private final TelevisionRepository repo;
+    private final TelevisionRepository televisionRepository;
+    private final RemoteRepository remoteRepository;
 
-    public TelevisionService(TelevisionRepository repo) {
-        this.repo = repo;
+    @Autowired public TelevisionService (TelevisionRepository televisionRepository, RemoteRepository remoteRepository) {
+        this.televisionRepository = televisionRepository;
+        this.remoteRepository = remoteRepository;
     }
 
+//    public TelevisionService(RemoteRepository remoteRepository) {
+//        this.remoteRepository = remoteRepository;
+//    }
+//
+//    public TelevisionService(TelevisionRepository repo) {
+//        this.repo = repo;
+//    }
 
-    public Iterable<TelevisionDto> getTvs() {
-        Iterable<Television> allTvs = repo.findAll();
+
+    public Iterable<TelevisionDto> getTelevisions() {
+        Iterable<Television> allTvs = televisionRepository.findAll();
         ArrayList<TelevisionDto> tvDtoList = new ArrayList<>();
 
         for (Television tv : allTvs) {
-            TelevisionDto tvDto = new TelevisionDto();
+            TelevisionDto tvDto = TelevisionDto.fromTelevision(tv);
 
             tvDtoList.add(tvDto);
         }
@@ -34,38 +46,46 @@ public class TelevisionService {
     }
 
 
-    public TelevisionDto getTv(Long id) {
-        if (repo.findById(id).isPresent()) {
-            Television tv = repo.findById(id).get();
-        }
-        return TelevisionDto.fromTelevision(tv);
+    public TelevisionDto getTelevision(Long id) {
+        if (televisionRepository.findById(id).isPresent()) {
+            Television tv = televisionRepository.findById(id).get();
 
+            return TelevisionDto.fromTelevision(tv);
+            //return televisionRepository.findById(id).get();
+
+        } else {
+            throw new RecordNotFoundException(String.format("TV with id %d not found", id));
+        }
     }
 
 
-    public Long saveTv(TelevisionInputDto tvDto) {
+    public Long saveTelevision(TelevisionInputDto tvDto) {
 
-        Television savedTv = repo.save(tvDto.toTelevision());
-
+        Television savedTv = televisionRepository.save(tvDto.toTelevision(tvDto));
         return savedTv.getId();
     }
 
 
-    public TelevisionDto updateTv(Long id, TelevisionInputDto tvInputDto) {
-        if (repo.findById(id).isPresent()) {
-            Television tv = repo.findById(id).get();
+    public TelevisionDto updateTelevision(Long id, TelevisionInputDto televisionInputDto) {
+        if (televisionRepository.findById(id).isPresent()) {
+            Television tv = televisionRepository.findById(id).get();
 
-            repo.save(tv);
+                Television tvUpdated = TelevisionDto.fromTelevision();
+                tvUpdated.setId(tv.getId());
 
-            return TelevisionDto.fromTelevision(tv);
+                televisionRepository.save(tvUpdated);
+
+                return TelevisionDto.fromTelevision(tv);
+            }
+
+
+
+        public void deleteTelevision(Long id){
+            televisionRepository.deleteById(id);
+
         }
 
-
-
-    public void deleteTv(Long id) {
-            repo.deleteById(id);
-
-        }
+        return null;
 
     }
 }

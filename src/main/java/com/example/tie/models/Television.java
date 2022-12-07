@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonTypeId;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "televisions")
@@ -30,6 +31,39 @@ public class Television {
     private int originalStock;
     private int sold;
 
+    @OneToOne
+    private Remote remote;
+
+    @ManyToOne
+    @JoinColumn(name = "cimodule_id")
+    private CiModule cimodule;
+
+    @ManyToMany
+    private List<WallBracket> wallbrackets;
+
+    public List<WallBracket> getWallbrackets() {
+        return wallbrackets;
+    }
+
+    public void setWallbrackets(List<WallBracket> wallbrackets) {
+        this.wallbrackets = wallbrackets;
+    }
+
+    public CiModule getCimodule() {
+        return cimodule;
+    }
+
+    public void setCimodule(CiModule cimodule) {
+        this.cimodule = cimodule;
+    }
+
+    public Remote getRemote() {
+        return remote;
+    }
+
+    public void setRemote(Remote remote) {
+        this.remote = remote;
+    }
 
     public Television() {
     }

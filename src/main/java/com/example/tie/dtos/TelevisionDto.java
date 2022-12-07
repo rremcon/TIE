@@ -23,6 +23,8 @@ public class TelevisionDto {
     public int originalStock;
     public int sold;
 
+    public RemoteDto remote;
+
 
     public static TelevisionDto fromTelevision(Television tv) {
         var tvDto = new TelevisionDto();

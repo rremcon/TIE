@@ -1,8 +1,11 @@
 package com.example.tie.controllers;
 
+import com.example.tie.dtos.IdInputDto;
+import com.example.tie.dtos.RemoteInputDto;
 import com.example.tie.dtos.TelevisionDto;
 import com.example.tie.dtos.TelevisionInputDto;
 import com.example.tie.exceptions.RecordNotFoundException;
+import com.example.tie.models.Remote;
 import com.example.tie.models.Television;
 import com.example.tie.repositories.TelevisionRepository;
 import com.example.tie.services.TelevisionService;
@@ -19,37 +22,33 @@ import java.util.ArrayList;
 @RequestMapping("/televisions")
 public class TelevisionController {
 
+    private final TelevisionService televisionService;
 
-//    @Autowired
-//    private TelevisionRepository repo;
-
-    private final TelevisionService serv;
-
-    public TelevisionController(TelevisionService serv) {
-        this.serv = serv;
+    public TelevisionController(TelevisionService televisionService) {
+        this.televisionService = televisionService;
     }
 
 
     @GetMapping("")
-    public ResponseEntity<Iterable<TelevisionDto>>getTvs() {
-        return ResponseEntity.ok(serv.getTvs());
+    public ResponseEntity<Iterable<TelevisionDto>>getTelevisions() {
+        return ResponseEntity.ok(televisionService.getTelevisions());
     }
 
 
     @GetMapping("/{id}")
-    public ResponseEntity<Object> getTv(@PathVariable int id) {
-        if (id < 4) {
-            return new ResponseEntity<>("television " + id, HttpStatus.OK);
+    public ResponseEntity<Object> getTelevision(@PathVariable Long id) {
+        if (id > 0) {
+            return ResponseEntity.ok(televisionService.getTelevision(id));
         } else {
-            throw new RecordNotFoundException("Id not found");
+            throw new RecordNotFoundException(String.format("TV with id %d not found", id));
         }
     }
 
 
     @PostMapping("")
-    public ResponseEntity<Object> saveTv(@RequestBody TelevisionInputDto tvDto) {
+    public ResponseEntity<Object> saveTelevision(@RequestBody TelevisionInputDto tvDto) {
 
-        Long savedId = serv.saveTv(tvDto);
+        Long savedId = televisionService.saveTelevision(tvDto);
         URI uri = URI.create(
                 ServletUriComponentsBuilder
                         .fromCurrentContextPath()
@@ -60,15 +59,18 @@ public class TelevisionController {
 
 
     @PutMapping("/{id}")
-    public ResponseEntity<Television> updateTv(@PathVariable int id, @RequestBody Television television) {
-        return ResponseEntity.noContent().build();
+    public ResponseEntity<TelevisionDto> updateTelevision(@PathVariable Long id, @RequestBody TelevisionInputDto televisionInputDto) {
+        TelevisionDto tvDto = televisionService.updateTelevision(id, televisionInputDto);
+
+        return ResponseEntity.ok().body(tvDto);
     }
 
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Object> deleteTv(@PathVariable int id) {
+    public ResponseEntity<Object> deleteTelevision(@PathVariable Long id) {
+        televisionService.deleteTelevision(id);
         return ResponseEntity.noContent().build();
+//        return ResponseEntity.noContent(televisionService.deleteTelevision(id));
     }
-
 
 }
