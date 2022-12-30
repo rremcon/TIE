@@ -1,4 +1,4 @@
-package com.example.tie.dtos;
+package com.example.tie.inputDto;
 
 public class RemoteInputDto {
 

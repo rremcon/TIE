@@ -15,12 +15,25 @@ public class Remote {
     private String batteryType;
     private String name;
     private String brand;
-    private double price;
-    private int originalStock;
+    private Double price;
+    private Integer originalStock;
 
     @OneToOne(mappedBy = "remote")
     @JsonIgnore
     private Television television;
+
+    public Remote() {
+    }
+
+    public Remote(Long id, String compatibleWith, String batteryType, String name, String brand, double price, int originalStock) {
+        this.id = id;
+        this.compatibleWith = compatibleWith;
+        this.batteryType = batteryType;
+        this.name = name;
+        this.brand = brand;
+        this.price = price;
+        this.originalStock = originalStock;
+    }
 
     public Television getTelevision() {
         return television;

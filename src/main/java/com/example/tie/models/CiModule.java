@@ -14,25 +14,17 @@ public class CiModule {
     private Long id;
     private String name;
     private String type;
-    private double price;
+    private Double price;
 
     @OneToMany(mappedBy = "cimodule")
     @JsonIgnore
-    private List<Television> televisions;
+    List<Television> televisions;
 
-    public List<Television> getTelevisions() {
-        return televisions;
-    }
-
-    public void setTelevisions(List<Television> televisions) {
-        this.televisions = televisions;
-    }
-
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

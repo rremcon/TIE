@@ -1,54 +1,226 @@
 package com.example.tie.dtos;
 
-import com.example.tie.models.Television;
+import com.example.tie.models.Remote;
+import com.example.tie.models.WallBracket;
+
+import java.util.List;
 
 public class TelevisionDto {
 
-    public Long id;
+    private Long id;
+    private String type;
+    private String brand;
+    private String name;
+    private double price;
+    private double availableSize;
+    private double refreshRate;
+    private String screenType;
+    private String screenQuality;
+    private boolean smartTv;
+    private boolean wifi;
+    private boolean voiceControl;
+    private boolean hdr;
+    private boolean bluetooth;
+    private boolean ambiLight;
+    private int originalStock;
+    private int sold;
 
-    public String type;
-    public String brand;
-    public String name;
-    public double price;
-    public double availableSize;
-    public double refreshRate;
-    public String screenType;
-    public String screenQuality;
-    public boolean smartTv;
-    public boolean wifi;
-    public boolean voiceControl;
-    public boolean hdr;
-    public boolean bluetooth;
-    public boolean ambiLight;
-    public int originalStock;
-    public int sold;
+    private Remote remote;
+    private List<WallBracket> wallbrackets;
 
-    public RemoteDto remote;
-
-
-    public static TelevisionDto fromTelevision(Television tv) {
-        var tvDto = new TelevisionDto();
-
-        tvDto.id = tv.getId();
-        tvDto.type = tv.getType();
-        tvDto.brand = tv.getBrand();
-        tvDto.name = tv.getName();
-        tvDto.price = tv.getPrice();
-        tvDto.availableSize = tv.getAvailableSize();
-        tvDto.refreshRate = tv.getRefreshRate();
-        tvDto.screenType = tv.getScreenType();
-        tvDto.screenQuality = tv.getScreenQuality();
-        tvDto.smartTv = tv.getSmartTv();
-        tvDto.wifi = tv.getWifi();
-        tvDto.voiceControl = tv.getVoiceControl();
-        tvDto.hdr = tv.getHdr();
-        tvDto.bluetooth = tv.getBluetooth();
-        tvDto.ambiLight = tv.getAmbiLight();
-        tvDto.originalStock = tv.getOriginalStock();
-        tvDto.sold = tv.getSold();
+    private RemoteDto remoteDto;
+    private CiModuleDto ciModuleDto;
 
 
-        return tvDto;
+    public RemoteDto getRemoteDto() {
+        return remoteDto;
+    }
+
+    public void setRemoteDto(RemoteDto remoteDto) {
+        this.remoteDto = remoteDto;
+    }
+
+    public CiModuleDto getCiModuleDto() {
+        return ciModuleDto;
+    }
+
+    public void setCiModuleDto(CiModuleDto ciModuleDto) {
+        this.ciModuleDto = ciModuleDto;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getBrand() {
+        return brand;
+    }
+
+    public void setBrand(String brand) {
+        this.brand = brand;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public double getAvailableSize() {
+        return availableSize;
+    }
+
+    public void setAvailableSize(double availableSize) {
+        this.availableSize = availableSize;
+    }
+
+    public double getRefreshRate() {
+        return refreshRate;
+    }
+
+    public void setRefreshRate(double refreshRate) {
+        this.refreshRate = refreshRate;
+    }
+
+    public String getScreenType() {
+        return screenType;
+    }
+
+    public void setScreenType(String screenType) {
+        this.screenType = screenType;
+    }
+
+    public String getScreenQuality() {
+        return screenQuality;
+    }
+
+    public void setScreenQuality(String screenQuality) {
+        this.screenQuality = screenQuality;
+    }
+
+    public boolean getSmartTv() {
+        return smartTv;
+    }
+
+    public void setSmartTv(boolean smartTv) {
+        this.smartTv = smartTv;
+    }
+
+    public boolean getWifi() {
+        return wifi;
+    }
+
+    public void setWifi(boolean wifi) {
+        this.wifi = wifi;
+    }
+
+    public boolean getVoiceControl() {
+        return voiceControl;
+    }
+
+    public void setVoiceControl(boolean voiceControl) {
+        this.voiceControl = voiceControl;
+    }
+
+    public boolean getHdr() {
+        return hdr;
+    }
+
+    public void setHdr(boolean hdr) {
+        this.hdr = hdr;
+    }
+
+    public boolean getBluetooth() {
+        return bluetooth;
+    }
+
+    public void setBluetooth(boolean bluetooth) {
+        this.bluetooth = bluetooth;
+    }
+
+    public boolean getAmbiLight() {
+        return ambiLight;
+    }
+
+    public void setAmbiLight(boolean ambiLight) {
+        this.ambiLight = ambiLight;
+    }
+
+    public int getOriginalStock() {
+        return originalStock;
+    }
+
+    public void setOriginalStock(int originalStock) {
+        this.originalStock = originalStock;
+    }
+
+    public int getSold() {
+        return sold;
+    }
+
+    public void setSold(int sold) {
+        this.sold = sold;
+    }
+
+    public Remote getRemote() {
+        return remote;
+    }
+
+    public void setRemote(Remote remote) {
+        this.remote = remote;
+    }
+
+    public List<WallBracket> getWallbrackets() {
+        return wallbrackets;
+    }
+
+    public void setWallbrackets(List<WallBracket> wallbrackets) {
+        this.wallbrackets = wallbrackets;
+    }
+
+    public TelevisionDto() {
+    }
+
+    public TelevisionDto(Long id, String type, String brand, String name, double price, double availableSize, double refreshRate, String screenType, String screenQuality, boolean smartTv, boolean wifi, boolean voiceControl, boolean hdr, boolean bluetooth, boolean ambiLight, int originalStock, int sold) {
+        this.id = id;
+        this.type = type;
+        this.brand = brand;
+        this.name = name;
+        this.price = price;
+        this.availableSize = availableSize;
+        this.refreshRate = refreshRate;
+        this.screenType = screenType;
+        this.screenQuality = screenQuality;
+        this.smartTv = smartTv;
+        this.wifi = wifi;
+        this.voiceControl = voiceControl;
+        this.hdr = hdr;
+        this.bluetooth = bluetooth;
+        this.ambiLight = ambiLight;
+        this.originalStock = originalStock;
+        this.sold = sold;
     }
 
 }

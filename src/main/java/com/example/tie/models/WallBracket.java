@@ -1,5 +1,7 @@
 package com.example.tie.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -15,15 +17,11 @@ public class WallBracket {
     private String name;
     private double price;
 
-    @ManyToMany
-    private List<Television> televisions;
+    @OneToMany(mappedBy = "television")
+    @JsonIgnore
+    List<TelevisionWallBracket> televisionWallBrackets;
+    public WallBracket() {
 
-    public List<Television> getTelevisions() {
-        return televisions;
-    }
-
-    public void setTelevisions(List<Television> televisions) {
-        this.televisions = televisions;
     }
 
     public Long getId() {
@@ -42,7 +40,7 @@ public class WallBracket {
         this.size = size;
     }
 
-    public boolean isAdjustable() {
+    public boolean getAdjustable() {
         return adjustable;
     }
 
@@ -64,6 +62,14 @@ public class WallBracket {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public List<TelevisionWallBracket> getTelevisionWallBrackets() {
+        return televisionWallBrackets;
+    }
+
+    public void setTelevisionWallBrackets(List<TelevisionWallBracket> televisionWallBrackets) {
+        this.televisionWallBrackets = televisionWallBrackets;
     }
 
 }

@@ -1,79 +1,36 @@
-package com.example.tie.models;
+package com.example.tie.inputDto;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
+import javax.validation.constraints.*;
 
-import javax.persistence.*;
-import java.util.Collection;
+public class TelevisionInputDto {
 
-@Entity
-@Table(name = "televisions")
-public class Television {
-
-    @Id
-    @GeneratedValue
-    private Long id;
+//    public Long id;
 
     private String type;
+    @NotNull(message = "Brand is required")
     private String brand;
+    @NotNull
+    @Size(max=20, message = "Name must be between 0-20 characters")
     private String name;
+    @Positive
     private double price;
     private double availableSize;
     private double refreshRate;
     private String screenType;
     private String screenQuality;
-    private Boolean smartTv;
+    private boolean smartTv;
     private boolean wifi;
     private boolean voiceControl;
+    @AssertTrue(message = "All televisions must be hdr minimum")
     private boolean hdr;
     private boolean bluetooth;
     private boolean ambiLight;
+    @PositiveOrZero(message = "Television can not have negative stock")
     private int originalStock;
-    private Integer sold;
-
-    @OneToOne
-    private Remote remote;
+    private int sold;
 
 
-    @ManyToOne(fetch =FetchType.EAGER)
-    @JoinColumn(name = "cimodule_id")
-    private CiModule cimodule;
-
-    @OneToMany(mappedBy = "television")
-    @LazyCollection(LazyCollectionOption.FALSE)
-    @JsonIgnore
-    Collection<TelevisionWallBracket> televisionWallBrackets;
-
-    public Collection<TelevisionWallBracket> getTelevisionWallBrackets() {
-        return televisionWallBrackets;
-    }
-
-    public void setTelevisionWallBrackets(Collection<TelevisionWallBracket> televisionWallBrackets) {
-        this.televisionWallBrackets = televisionWallBrackets;
-    }
-
-    public CiModule getCimodule() {
-        return cimodule;
-    }
-
-    public void setCimodule(CiModule cimodule) {
-        this.cimodule = cimodule;
-    }
-
-    public Remote getRemote() {
-        return remote;
-    }
-
-    public void setRemote(Remote remote) {
-        this.remote = remote;
-    }
-
-    public Television() {
-    }
-
-    public Television(Long id, String type, String brand, String name, double price, double availableSize, double refreshRate, String screenType, String screenQuality, boolean smartTv, boolean wifi, boolean voiceControl, boolean hdr, boolean bluetooth, boolean ambiLight, int originalStock, int sold) {
-        this.id = id;
+    public TelevisionInputDto(String type, String brand, String name, double price, double availableSize, double refreshRate, String screenType, String screenQuality, boolean smartTv, boolean wifi, boolean voiceControl, boolean hdr, boolean bluetooth, boolean ambiLight, int originalStock, int sold) {
         this.type = type;
         this.brand = brand;
         this.name = name;
@@ -90,15 +47,6 @@ public class Television {
         this.ambiLight = ambiLight;
         this.originalStock = originalStock;
         this.sold = sold;
-    }
-
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getType() {

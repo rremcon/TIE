@@ -1,4 +1,4 @@
-package com.example.tie.dtos;
+package com.example.tie.inputDto;
 
 public class WallBracketInputDto {
 
@@ -7,5 +7,4 @@ public class WallBracketInputDto {
     public boolean adjustable;
     public String name;
     public double price;
-
 }
